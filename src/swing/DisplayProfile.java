@@ -1,5 +1,7 @@
 package swing;
 
+import Models.User;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,14 +13,16 @@ public class DisplayProfile extends JFrame{
     private JLabel heading;
     private JButton startNewGameButton;
     private JButton exitButton;
+    private User user;
 
-    public DisplayProfile(String name){
+    public DisplayProfile(String name, User user){
+        this.user = user;
         setSize(700,500);
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        String [] ListData={"\n","User name : \t "+name , "Score: \t" , "Matches played: \t", "\n"};
+        String [] ListData={"\n","User name : \t "+name , "Score: \t" +user.getScore(), "Matches played: \t"+user.getMatchesPlayed(), "\n"};
         list1.setListData(ListData);
 
         //data has type Object[]

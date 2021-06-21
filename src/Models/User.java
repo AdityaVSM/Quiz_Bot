@@ -5,10 +5,8 @@ public class User {
     int matchesPlayed;
     int score;
 
-    public User(String name, int matchesPlayed, int score) {
+    public User(String name) {
         this.name = name;
-        this.matchesPlayed = matchesPlayed;
-        this.score = score;
     }
 
     public String getName() {
@@ -21,6 +19,14 @@ public class User {
 
     public int getScore() {
         return score;
+    }
+
+    public void setMatchesPlayed(int matchesPlayed) {
+        this.matchesPlayed = matchesPlayed;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     @Override
