@@ -41,19 +41,4 @@ public class Questions{
         return correctAnsIndex;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void setOptions(ArrayList<String> options) {
-        this.options = options;
-    }
-
-    public void setCorrectAns(String correctAns) {
-        this.correctAns = correctAns;
-    }
-
-    public void setCorrectAnsIndex(int correctAnsIndex) {
-        this.correctAnsIndex = correctAnsIndex;
-    }
 }
