@@ -6,7 +6,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import java.util.Scanner;
 public class GenerateQuestions {
     HashMap<String, String> questionAndAnsHashMap = new HashMap<>();
     HashMap<String,ArrayList<String>> questionAndOptionsHashMap = new HashMap<>();
+    ArrayList<Questions> questionObjects= new ArrayList<>();
     String score;
     String attempts;
     String api;
@@ -26,7 +26,7 @@ public class GenerateQuestions {
         this.api = api;
     }
 
-    public ArrayList<String> randomiseOptions(String correctOption,ArrayList<String> tempOptionsArr){
+    public ArrayList<String> randomiseOptions(String question, String correctOption,ArrayList<String> tempOptionsArr){
         ArrayList<String> temp = new ArrayList<>(4);
         Random rand = new Random();
 
@@ -41,6 +41,7 @@ public class GenerateQuestions {
                 index++;
             }
         }
+        questionObjects.add(new Questions(question,temp,correctOption,answerPos));
         return temp;
     }
 
@@ -67,7 +68,7 @@ public class GenerateQuestions {
         JSONObject object = (JSONObject) new JSONParser().parse(data);
         JSONArray resArr = (JSONArray) object.get("results"); //JSON array of results
 
-        //populating question and options array
+        //populating question and options HashMaps
         for (int i = 0; i < resArr.size(); i++) {
             JSONObject eachResultObject = (JSONObject) resArr.get(i); //each result object
             String question = eachResultObject.get("question").toString(); //question from each result object
@@ -81,12 +82,12 @@ public class GenerateQuestions {
             }
 
             ArrayList<String> randomizedOptionsArray = new ArrayList<>();
-            randomizedOptionsArray = randomiseOptions(correctAns,tempOptionsArr);   //randomizes options with correct ans (size = 4 options)
+            randomizedOptionsArray = randomiseOptions(question, correctAns,tempOptionsArr);   //randomizes options with correct ans (size = 4 options)
             questionAndOptionsHashMap.put(question,randomizedOptionsArray);     //put ready option arrayList to  questionAndOptionsHashMap
+
         }
 
-        System.out.println(questionAndOptionsHashMap);
-        System.out.println(questionAndAnsHashMap);
+        System.out.println(questionObjects);
     }
 
     public static void main(String[] args) throws IOException, ParseException {

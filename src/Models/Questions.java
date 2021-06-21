@@ -3,20 +3,30 @@ package Models;
 import java.util.ArrayList;
 
 public class Questions{
-    ArrayList<String> questions;
+    String question;
     ArrayList<String> options;
     String correctAns;
     int correctAnsIndex;
 
-    public Questions(ArrayList<String> questions, ArrayList<String> options, String correctAns, int correctAnsIndex) {
-        this.questions = questions;
+    public Questions(String question, ArrayList<String> options, String correctAns, int correctAnsIndex) {
+        this.question = question;
         this.options = options;
         this.correctAns = correctAns;
         this.correctAnsIndex = correctAnsIndex;
     }
 
-    public ArrayList<String> getQuestions() {
-        return questions;
+    @Override
+    public String toString() {
+        return "Questions{" +
+                "question='" + question + '\'' +
+                ", options=" + options +
+                ", correctAns='" + correctAns + '\'' +
+                ", correctAnsIndex=" + correctAnsIndex + '\n'+
+                '}';
+    }
+
+    public String getQuestion() {
+        return question;
     }
 
     public ArrayList<String> getOptions() {
@@ -31,8 +41,8 @@ public class Questions{
         return correctAnsIndex;
     }
 
-    public void setQuestions(ArrayList<String> questions) {
-        this.questions = questions;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public void setOptions(ArrayList<String> options) {
