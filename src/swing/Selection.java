@@ -35,7 +35,7 @@ public class Selection extends JFrame {
     //topic
     String topicSelected;
     ButtonGroup topicGroup;
-    JRadioButton jRadioButton1 = new JRadioButton("General Knowledge");
+    JRadioButton jRadioButton1 = new JRadioButton("Gk");
     JRadioButton jRadioButton2 = new JRadioButton("Books");
     JRadioButton jRadioButton3 = new JRadioButton("Film");
     JRadioButton jRadioButton4 = new JRadioButton("Music");
@@ -63,7 +63,9 @@ public class Selection extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                GenerateQuestions generateQuestions = new GenerateQuestions("https://opentdb.com/api.php?amount=10&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple");
+                String api = "https://opentdb.com/api.php?amount=10&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple";
+                System.out.println(api);
+                GenerateQuestions generateQuestions = new GenerateQuestions(api);
                 try {
                     generateQuestions.generateQuestionsAndOptions();
                 } catch (Exception ex) {

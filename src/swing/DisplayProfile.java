@@ -22,7 +22,7 @@ public class DisplayProfile extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        String [] ListData={"\n","UserModel name : \t "+name , "Score: \t" +user.getScore(), "Matches played: \t"+user.getMatchesPlayed(), "\n"};
+        String [] ListData={"\n","User name : \t "+name , "Score: \t" +user.getScore(), "Matches played: \t"+user.getMatchesPlayed(), "\n"};
         list1.setListData(ListData);
 
         //data has type Object[]
