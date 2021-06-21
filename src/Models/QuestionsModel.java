@@ -2,13 +2,13 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Questions{
+public class QuestionsModel {
     String question;
     ArrayList<String> options;
     String correctAns;
     int correctAnsIndex;
 
-    public Questions(String question, ArrayList<String> options, String correctAns, int correctAnsIndex) {
+    public QuestionsModel(String question, ArrayList<String> options, String correctAns, int correctAnsIndex) {
         this.question = question;
         this.options = options;
         this.correctAns = correctAns;
@@ -17,7 +17,7 @@ public class Questions{
 
     @Override
     public String toString() {
-        return "Questions{" +
+        return "QuestionsModel{" +
                 "question='" + question + '\'' +
                 ", options=" + options +
                 ", correctAns='" + correctAns + '\'' +

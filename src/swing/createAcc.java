@@ -1,6 +1,6 @@
 package swing;
 
-import Models.User;
+import Models.UserModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -32,7 +32,7 @@ public class createAcc extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 userName = textField1.getText();
-                User user = new User(userName); //If user already exists in file login else create acc
+                UserModel user = new UserModel(userName); //If user already exists in file login else create acc
 //                System.out.println(user);
                 user.setMatchesPlayed(12);  //get data from file
                 user.setScore(450);         //get data from file

@@ -1,6 +1,6 @@
 package swing;
 
-import Models.User;
+import Models.UserModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,16 +13,16 @@ public class DisplayProfile extends JFrame{
     private JLabel heading;
     private JButton startNewGameButton;
     private JButton exitButton;
-    private User user;
+    private UserModel user;
 
-    public DisplayProfile(String name, User user){
+    public DisplayProfile(String name, UserModel user){
         this.user = user;
         setSize(700,500);
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        String [] ListData={"\n","User name : \t "+name , "Score: \t" +user.getScore(), "Matches played: \t"+user.getMatchesPlayed(), "\n"};
+        String [] ListData={"\n","UserModel name : \t "+name , "Score: \t" +user.getScore(), "Matches played: \t"+user.getMatchesPlayed(), "\n"};
         list1.setListData(ListData);
 
         //data has type Object[]

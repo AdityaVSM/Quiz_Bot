@@ -1,11 +1,11 @@
 package Models;
 
-public class User {
+public class UserModel {
     String name;
     int matchesPlayed;
     int score;
 
-    public User(String name) {
+    public UserModel(String name) {
         this.name = name;
     }
 
@@ -31,7 +31,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserModel{" +
                 "name='" + name + '\'' +
                 ", matchesPlayed=" + matchesPlayed +
                 ", score=" + score +

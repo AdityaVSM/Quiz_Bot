@@ -1,11 +1,16 @@
 package swing;
 
+import Models.QuestionsModel;
+import Work.GenerateQuestions;
+import org.json.simple.parser.ParseException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 public class Selection extends JFrame {
     private JPanel mainPanel;
@@ -30,11 +35,19 @@ public class Selection extends JFrame {
     //topic
     String topicSelected;
     ButtonGroup topicGroup;
-    JRadioButton jRadioButton1 = new JRadioButton("GK");
-    JRadioButton jRadioButton2 = new JRadioButton("Science");
-    JRadioButton jRadioButton3 = new JRadioButton("Tech");
-    JRadioButton jRadioButton4 = new JRadioButton("Sports");
+    JRadioButton jRadioButton1 = new JRadioButton("General Knowledge");
+    JRadioButton jRadioButton2 = new JRadioButton("Books");
+    JRadioButton jRadioButton3 = new JRadioButton("Film");
+    JRadioButton jRadioButton4 = new JRadioButton("Music");
 
+    HashMap<String, Integer> topicApiValues = new HashMap<>();
+
+    public void setTopicApiValues() {
+        topicApiValues.put("Gk",9);
+        topicApiValues.put("Books",10);
+        topicApiValues.put("Film",11);
+        topicApiValues.put("Music",12);
+    }
 
     public Selection(){
         setSize(700,500);
@@ -44,11 +57,19 @@ public class Selection extends JFrame {
 
         setTopic();
         setDifficulty();
+        setTopicApiValues();
+
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new Questions();
+                GenerateQuestions generateQuestions = new GenerateQuestions("https://opentdb.com/api.php?amount=10&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple");
+                try {
+                    generateQuestions.generateQuestionsAndOptions();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
             }
         });
         exitButton.addActionListener(new ActionListener() {

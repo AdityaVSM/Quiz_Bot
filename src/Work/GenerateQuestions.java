@@ -1,9 +1,12 @@
-import Models.Questions;
+package Work;
+
+import Models.QuestionsModel;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import swing.Questions;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -17,9 +20,7 @@ import java.util.Scanner;
 public class GenerateQuestions {
     HashMap<String, String> questionAndAnsHashMap = new HashMap<>();
     HashMap<String,ArrayList<String>> questionAndOptionsHashMap = new HashMap<>();
-    ArrayList<Questions> questionObjects= new ArrayList<>();
-    String score;
-    String attempts;
+    ArrayList<QuestionsModel> questionObjects= new ArrayList<>();
     String api;
 
     public GenerateQuestions(String api) {
@@ -41,7 +42,7 @@ public class GenerateQuestions {
                 index++;
             }
         }
-        questionObjects.add(new Questions(question,temp,correctOption,answerPos));
+        questionObjects.add(new QuestionsModel(question,temp,correctOption,answerPos));
         return temp;
     }
 
@@ -86,14 +87,8 @@ public class GenerateQuestions {
             questionAndOptionsHashMap.put(question,randomizedOptionsArray);     //put ready option arrayList to  questionAndOptionsHashMap
 
         }
-
-        System.out.println(questionObjects);
+        Questions questionsPage = new Questions(questionObjects);
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
-        GenerateQuestions q1 = new GenerateQuestions("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
-        q1.generateQuestionsAndOptions();
-
-    }
 }
 
