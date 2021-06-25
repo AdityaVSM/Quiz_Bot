@@ -23,6 +23,7 @@ public class Selection extends JFrame {
     private JPanel rightRadioButtonPanel;
     private JButton startButton;
     private JButton exitButton;
+    private JLabel errorText;
 
 
     //difficulty
@@ -50,6 +51,7 @@ public class Selection extends JFrame {
     }
 
     public Selection(){
+        errorText.setVisible(false);
         setSize(700,500);
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,14 +64,27 @@ public class Selection extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                String api = "https://opentdb.com/api.php?amount=10&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple";
-                System.out.println(api);
-                GenerateQuestions generateQuestions = new GenerateQuestions(api);
-                try {
-                    generateQuestions.generateQuestionsAndOptions();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                if(topicSelected==null || difficultySelected == null){
+                    errorText.setVisible(true);
+                    int delay = 5000; //milliseconds
+                    ActionListener taskPerformer = new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            errorText.setVisible(false);
+                        }
+                    };
+                    new javax.swing.Timer(delay, taskPerformer).start();
+                }else{
+                    String api = "https://opentdb.com/api.php?amount=10&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple";
+                    System.out.println(api);
+                    GenerateQuestions generateQuestions = new GenerateQuestions(api);
+                    try {
+                        generateQuestions.generateQuestionsAndOptions();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    finally {
+                        dispose();
+                    }
                 }
 
             }

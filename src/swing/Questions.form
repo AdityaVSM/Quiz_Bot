@@ -17,7 +17,9 @@
         <children>
           <component id="cfc01" class="javax.swing.JList" binding="questionList">
             <constraints/>
-            <properties/>
+            <properties>
+              <selectionBackground color="-13717730"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

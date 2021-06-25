@@ -52,7 +52,6 @@ public class Questions extends JFrame{
         }
 
         DefaultListModel listModel = new DefaultListModel();
-
         for(int i=0; i<questionObjects.size(); i++){
             listModel.addElement((questions.get(i)+"\n\n").toString());
             ArrayList<String> eachQuestionOptions = options.get(i);
