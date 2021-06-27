@@ -27,14 +27,14 @@ public class Selection extends JFrame {
 
 
     //difficulty
-    String difficultySelected;
+    public static String difficultySelected;
     ButtonGroup difficultyGroup;
     JRadioButton jRadioButtonA = new JRadioButton("Easy");
     JRadioButton jRadioButtonB = new JRadioButton("Medium");
     JRadioButton jRadioButtonC = new JRadioButton("Hard");
 
     //topic
-    String topicSelected;
+    public static String topicSelected;
     ButtonGroup topicGroup;
     JRadioButton jRadioButton1 = new JRadioButton("Gk");
     JRadioButton jRadioButton2 = new JRadioButton("Books");

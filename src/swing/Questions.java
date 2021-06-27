@@ -1,12 +1,17 @@
 package swing;
 
 import Models.QuestionsModel;
-
+import swing.Selection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
+import static swing.Selection.difficultySelected;
+import static swing.Selection.topicSelected;
 
 public class Questions extends JFrame{
     private JPanel mainPanel;
@@ -15,6 +20,7 @@ public class Questions extends JFrame{
     private JButton submitButton;
     private JPanel bottomPane;
     private JScrollPane questionsScrollPane;
+    private JLabel questionsHeading;
     ArrayList<QuestionsModel> questionObjects;
 
     public Questions(ArrayList<QuestionsModel> questionObjects){
@@ -40,6 +46,9 @@ public class Questions extends JFrame{
             }
         });
 
+        //set heading
+        questionsHeading.setText(topicSelected+"                  "+difficultySelected);
+
         //get questions options and answer
         ArrayList<String> questions = new ArrayList<>();
         ArrayList<ArrayList<String>> options = new ArrayList<>();
@@ -53,11 +62,22 @@ public class Questions extends JFrame{
 
         DefaultListModel listModel = new DefaultListModel();
         for(int i=0; i<questionObjects.size(); i++){
-            listModel.addElement((questions.get(i)+"\n\n").toString());
+            JLabel questionLabel = new JLabel();
+            questionLabel.setText(
+                    "<html>"+
+                            questions.get(i)+"<br>"+
+                    "</html>"
+            );
+            listModel.addElement(questionLabel.getText());
             ArrayList<String> eachQuestionOptions = options.get(i);
             for (int j=0; j<eachQuestionOptions.size(); j++){
                 listModel.addElement(eachQuestionOptions.get(j)+"\n");
             }
+            JLabel extraSpace = new JLabel();
+            extraSpace.setText(
+                    "<html> <br><br> </html>"
+            );
+            listModel.addElement(extraSpace.getText());
         }
 
         //populate question List
@@ -65,7 +85,12 @@ public class Questions extends JFrame{
         questionList.setModel(listModel);
 
 
+        questionList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
 
+            }
+        });
     }
 
     public static void main(String[] args) {
