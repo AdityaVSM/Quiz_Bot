@@ -15,18 +15,19 @@ import static swing.Selection.topicSelected;
 
 public class Questions extends JFrame{
     private JPanel mainPanel;
-    private JList questionList;
+    private JList questionList = new JList();
     private JButton quitButton;
     private JButton submitButton;
     private JPanel bottomPane;
     private JScrollPane questionsScrollPane;
     private JLabel questionsHeading;
+    private JPanel questionsAndOptionsPanel;
     ArrayList<QuestionsModel> questionObjects;
 
-    public Questions(ArrayList<QuestionsModel> questionObjects){
+    public Questions(ArrayList<QuestionsModel> questionObjects) {
         this.questionObjects = questionObjects;
 
-        setSize(700,500);
+        setSize(1000, 1000);
         setContentPane(mainPanel);
 
 //        System.out.println(questionObjects);
@@ -47,54 +48,46 @@ public class Questions extends JFrame{
         });
 
         //set heading
-        questionsHeading.setText(topicSelected+"                  "+difficultySelected);
+        questionsHeading.setText(topicSelected + "                  " + difficultySelected);
 
         //get questions options and answer
         ArrayList<String> questions = new ArrayList<>();
         ArrayList<ArrayList<String>> options = new ArrayList<>();
         ArrayList<Integer> correctAnsIndex = new ArrayList<>();
 
-        for(int i=0 ;i<questionObjects.size(); i++){
+        for (int i = 0; i < questionObjects.size(); i++) {
             questions.add(questionObjects.get(i).getQuestion());
             options.add(questionObjects.get(i).getOptions());
             correctAnsIndex.add(questionObjects.get(i).getCorrectAnsIndex());
         }
 
-        DefaultListModel listModel = new DefaultListModel();
-        for(int i=0; i<questionObjects.size(); i++){
-            JLabel questionLabel = new JLabel();
-            questionLabel.setText(
-                    "<html>"+
-                            questions.get(i)+"<br>"+
-                    "</html>"
-            );
-            listModel.addElement(questionLabel.getText());
-            ArrayList<String> eachQuestionOptions = options.get(i);
-            for (int j=0; j<eachQuestionOptions.size(); j++){
-                listModel.addElement(eachQuestionOptions.get(j)+"\n");
+
+        questionsAndOptionsPanel.setLayout(new BoxLayout(questionsAndOptionsPanel, BoxLayout.Y_AXIS));
+        Font questionsFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
+        Font optionFont = new Font(Font.SANS_SERIF,Font.PLAIN,16);
+
+        for (int i = 0; i < questions.size(); i++) {
+            JLabel questionLabel = new JLabel((i+1)+" "+questions.get(i));
+            questionLabel.setFont(questionsFont);
+            questionsAndOptionsPanel.add(questionLabel);
+            questionsAndOptionsPanel.add(Box.createRigidArea(new Dimension(0, 3)));
+
+            ButtonGroup optionsButtonGroup = new ButtonGroup();
+            ArrayList<String> eachQuestionOptions = new ArrayList<>();
+            for (String eachOptions : options.get(i)) {
+                JRadioButton eachOptionJRadioButton = new JRadioButton(eachOptions);
+                optionsButtonGroup.add(eachOptionJRadioButton);
+                eachQuestionOptions.add(eachOptions);
+                eachOptionJRadioButton.setFont(optionFont);
+                questionsAndOptionsPanel.add(eachOptionJRadioButton);
             }
-            JLabel extraSpace = new JLabel();
-            extraSpace.setText(
-                    "<html> <br><br> </html>"
-            );
-            listModel.addElement(extraSpace.getText());
+            questionsAndOptionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
         }
-
-        //populate question List
-        questionList.setFont(new java.awt.Font("sans-serif", 0, 18));
-        questionList.setModel(listModel);
-
-
-        questionList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-        });
     }
-
     public static void main(String[] args) {
         new Questions(null);
     }
+
 
 }
