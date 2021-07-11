@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import swing.Questions;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class GenerateQuestions {
             JSONObject eachResultObject = (JSONObject) resArr.get(i); //each result object
             String question = eachResultObject.get("question").toString(); //question from each result object
             String correctAns = eachResultObject.get("correct_answer").toString();  //correct answer from each result object
+
             questionAndAnsHashMap.put(question, correctAns);
 
             JSONArray incorrectOptionsArray = (JSONArray) eachResultObject.get("incorrect_answers"); //getting incorrect options json array

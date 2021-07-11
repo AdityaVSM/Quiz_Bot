@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static swing.Selection.difficultySelected;
 import static swing.Selection.topicSelected;
@@ -56,7 +60,11 @@ public class Questions extends JFrame{
         ArrayList<Integer> correctAnsIndex = new ArrayList<>();
 
         for (int i = 0; i < questionObjects.size(); i++) {
-            questions.add(questionObjects.get(i).getQuestion());
+            String currentQuestion = questionObjects.get(i).getQuestion();
+            //cleaning question
+            currentQuestion = cleanString(currentQuestion);
+
+            questions.add(currentQuestion);
             options.add(questionObjects.get(i).getOptions());
             correctAnsIndex.add(questionObjects.get(i).getCorrectAnsIndex());
         }
@@ -75,6 +83,8 @@ public class Questions extends JFrame{
             ButtonGroup optionsButtonGroup = new ButtonGroup();
             ArrayList<String> eachQuestionOptions = new ArrayList<>();
             for (String eachOptions : options.get(i)) {
+                //cleaning each options
+                eachOptions = cleanString(eachOptions);
                 JRadioButton eachOptionJRadioButton = new JRadioButton(eachOptions);
                 optionsButtonGroup.add(eachOptionJRadioButton);
                 eachQuestionOptions.add(eachOptions);
@@ -85,6 +95,28 @@ public class Questions extends JFrame{
 
         }
     }
+    public String cleanString(String rawString){
+        Map<String, String> map = new HashMap<>();
+        map.put("&quot;", "\"");
+        map.put("&amp;", "&");
+        map.put("&#039;", "\'");
+        map.put("&Iacute;", "Í");
+        map.put("&ldquo;", "\"");
+        map.put("&rdquo;", "\"");
+
+        Pattern p = Pattern.compile("&quot;|&amp;|&#039;|&Iacute;|&ldquo;|&rdquo;");
+        Matcher m = p.matcher(rawString);
+
+        StringBuffer sb = new StringBuffer();
+        while (m.find()){
+            m.appendReplacement(sb, map.get(m.group()));
+        }
+        m.appendTail(sb);
+
+        return sb.toString();
+    }
+
+
     public static void main(String[] args) {
         new Questions(null);
     }
