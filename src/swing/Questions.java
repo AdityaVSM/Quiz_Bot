@@ -1,13 +1,11 @@
 package swing;
 
 import Models.QuestionsModel;
-import swing.Selection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,17 +28,15 @@ public class Questions extends JFrame{
     ArrayList<String> questions;
     ArrayList<ArrayList<String>> options;
     ArrayList<Integer> correctAnsIndex;
+    ArrayList<String> correctOptions;
 
     public Questions(ArrayList<QuestionsModel> questionObjects) {
         this.questionObjects = questionObjects;
-
         setSize(1000, 1000);
         setContentPane(mainPanel);
-
-//        System.out.println(questionObjects);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,15 +51,20 @@ public class Questions extends JFrame{
         });
 
         //set heading
-        questionsHeading.setText(topicSelected + "                  " + difficultySelected);
-
+        questionsHeading.setText("<html>"+topicSelected+"\t"+difficultySelected+"</html>");
         //get questions options and answer
         questions = new ArrayList<>();
         options = new ArrayList<>();
         correctAnsIndex = new ArrayList<>();
+        correctOptions = new ArrayList<>();
+
+
         createUI();
 
     }
+
+
+
     public String cleanString(String rawString){
         Map<String, String> map = new HashMap<>();
         map.put("&quot;", "\"");
@@ -84,7 +85,11 @@ public class Questions extends JFrame{
 
         return sb.toString();
     }
-    public void createUI(){
+
+
+
+    public HashMap<Integer,String> createUI(String... args){
+        HashMap<Integer,String> selectedOptions = new HashMap<>();
         for (int i = 0; i < questionObjects.size(); i++) {
             String currentQuestion = questionObjects.get(i).getQuestion();
             //cleaning question
@@ -93,8 +98,8 @@ public class Questions extends JFrame{
             questions.add(currentQuestion);
             options.add(questionObjects.get(i).getOptions());
             correctAnsIndex.add(questionObjects.get(i).getCorrectAnsIndex());
+            correctOptions.add(questionObjects.get(i).getCorrectAns());
         }
-
 
         questionsAndOptionsPanel.setLayout(new BoxLayout(questionsAndOptionsPanel, BoxLayout.Y_AXIS));
         Font questionsFont = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
@@ -106,25 +111,58 @@ public class Questions extends JFrame{
             questionsAndOptionsPanel.add(questionLabel);
             questionsAndOptionsPanel.add(Box.createRigidArea(new Dimension(0, 3)));
 
+            ArrayList<JRadioButton> optionJRadioButtons = new ArrayList<>();
             ButtonGroup optionsButtonGroup = new ButtonGroup();
-            ArrayList<String> eachQuestionOptions = new ArrayList<>();
             for (String eachOptions : options.get(i)) {
                 //cleaning each options
                 eachOptions = cleanString(eachOptions);
+
                 JRadioButton eachOptionJRadioButton = new JRadioButton(eachOptions);
+                eachOptionJRadioButton.setActionCommand("hi");
+                optionJRadioButtons.add(eachOptionJRadioButton);
+
                 optionsButtonGroup.add(eachOptionJRadioButton);
-                eachQuestionOptions.add(eachOptions);
                 eachOptionJRadioButton.setFont(optionFont);
+
                 questionsAndOptionsPanel.add(eachOptionJRadioButton);
+
+            }
+
+            for(JRadioButton jr : optionJRadioButtons){
+                int finalI = i;
+                jr.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(jr.isSelected()){
+                            selectedOptions.put(finalI,jr.getText());
+                            disableButtons(optionJRadioButtons,jr.getText(),finalI);
+
+                            if(jr.getText().equals(correctOptions.get(finalI))){
+                                jr.setBackground(Color.green);
+                            }else{
+                                jr.setBackground(Color.red);
+                            }
+                        }
+                    }
+                });
             }
             questionsAndOptionsPanel.add(Box.createRigidArea(new Dimension(0, 15)));
 
         }
+        return selectedOptions;
     }
 
-
-    public static void main(String[] args) {
-        new Questions(null);
+    private void disableButtons(ArrayList<JRadioButton> optionJRadioButtons, String text, int questionIndex) {
+        for(JRadioButton i : optionJRadioButtons){
+            if(i.getText().equals(text))
+                continue;
+            else{
+                i.setEnabled(false);
+                if(i.getText().equals(correctOptions.get(questionIndex))){
+                    i.setBackground(Color.green);
+                }
+            }
+        }
     }
 
 
