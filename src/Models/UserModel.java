@@ -1,5 +1,7 @@
 package Models;
 
+import java.io.*;
+
 public class UserModel {
     String name;
     int matchesPlayed;
@@ -36,5 +38,38 @@ public class UserModel {
                 ", matchesPlayed=" + matchesPlayed +
                 ", score=" + score +
                 '}';
+    }
+}
+class ObjectFileProcessing extends UserModel{
+    public ObjectFileProcessing(String name,int score) {
+        super(name);
+        this.name = name;
+        this.score = score;
+    }
+
+    public void storeObject(UserModel user){
+        OutputStream ops = null;
+        ObjectOutputStream objOps = null;
+        try {
+            ops = new FileOutputStream("UsersFile.txt");
+            objOps = new ObjectOutputStream(ops);
+            objOps.writeObject(user);
+            objOps.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayObjects(){
+        InputStream fileIs = null;
+        ObjectInputStream objIs = null;
+        try {
+            fileIs = new FileInputStream("EmpFile.txt");
+            objIs = new ObjectInputStream(fileIs);
+            UserModel user = (UserModel) objIs.readObject();
+            System.out.println(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

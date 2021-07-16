@@ -21,7 +21,7 @@ public class Home extends JFrame {
 
 
     public Home() {
-        setSize(1500,800);
+        setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

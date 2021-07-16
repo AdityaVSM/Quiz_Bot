@@ -24,15 +24,17 @@ public class Questions extends JFrame{
     private JScrollPane questionsScrollPane;
     private JLabel questionsHeading;
     private JPanel questionsAndOptionsPanel;
+    private JLabel scoreLabel;
     ArrayList<QuestionsModel> questionObjects;
     ArrayList<String> questions;
     ArrayList<ArrayList<String>> options;
     ArrayList<Integer> correctAnsIndex;
     ArrayList<String> correctOptions;
+    int score = 0;
 
     public Questions(ArrayList<QuestionsModel> questionObjects) {
+        setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
         this.questionObjects = questionObjects;
-        setSize(1000, 1000);
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -46,6 +48,7 @@ public class Questions extends JFrame{
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Save score and matches played in user file
                 dispose();
             }
         });
@@ -57,13 +60,8 @@ public class Questions extends JFrame{
         options = new ArrayList<>();
         correctAnsIndex = new ArrayList<>();
         correctOptions = new ArrayList<>();
-
-
         createUI();
-
     }
-
-
 
     public String cleanString(String rawString){
         Map<String, String> map = new HashMap<>();
@@ -125,7 +123,6 @@ public class Questions extends JFrame{
                 eachOptionJRadioButton.setFont(optionFont);
 
                 questionsAndOptionsPanel.add(eachOptionJRadioButton);
-
             }
 
             for(JRadioButton jr : optionJRadioButtons){
@@ -139,6 +136,8 @@ public class Questions extends JFrame{
 
                             if(jr.getText().equals(correctOptions.get(finalI))){
                                 jr.setBackground(Color.green);
+                                score++;
+                                scoreLabel.setText(Integer.toString(score));
                             }else{
                                 jr.setBackground(Color.red);
                             }
