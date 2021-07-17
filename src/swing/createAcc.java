@@ -1,10 +1,13 @@
 package swing;
 
 import Models.UserModel;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class createAcc extends JFrame{
 
@@ -47,10 +50,23 @@ public class createAcc extends JFrame{
                 }else{
                     userName = textField1.getText();
                     UserModel user = new UserModel(userName); //If user already exists in file login else create acc
-                    user.setMatchesPlayed(12);  //get data from file
-                    user.setScore(450);         //get data from file
-                    user.displayData();
-                    new DisplayProfile(userName,user);
+                    try {
+                        ArrayList<Long> userData = user.getScoreAndMatchesPlayed();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    if(user.getMatchesPlayed()==0 && user.getScore()==0){
+                        try {
+                            user.storeData(user);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    try {
+                        new DisplayProfile(userName,user);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     dispose();
                 }
             }

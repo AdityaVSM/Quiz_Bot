@@ -1,15 +1,1 @@
-{
-  "users":
-  [
-    {
-      "name": "Aditya",
-      "score": 0,
-      "Matches played": 10
-    },
-    {
-      "name": "VSM",
-      "score": 56,
-      "Matches played": 10
-    }
-  ]
-}
+{"users":[{"score":0,"name":"vsm","Matches played":0},{"score":0,"name":"yo","Matches played":0},{"score":0,"name":"hello","Matches played":0},{"score":0,"name":"aditya","Matches played":0}]}

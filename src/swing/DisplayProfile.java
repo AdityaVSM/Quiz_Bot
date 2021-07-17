@@ -5,6 +5,7 @@ import Models.UserModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DisplayProfile extends JFrame{
@@ -16,7 +17,7 @@ public class DisplayProfile extends JFrame{
     private JButton exitButton;
     private UserModel user;
 
-    public DisplayProfile(String name, UserModel user){
+    public DisplayProfile(String name, UserModel user) throws IOException {
         this.user = user;
         setSize(700,500);
         setContentPane(mainPanel);
@@ -24,9 +25,10 @@ public class DisplayProfile extends JFrame{
         setVisible(true);
 
         ArrayList<Long> userData = user.getScoreAndMatchesPlayed();
-        String [] ListData={"\n","User name : \t "+name , "Score: \t" + userData.get(0), "Matches played: \t"+userData.get(1), "\n"};
-        list1.setListData(ListData);
-
+        if(userData!=null) {
+            String[] ListData = {"\n", "User name : \t " + name, "Score: \t" + userData.get(0), "Matches played: \t" + userData.get(1), "\n"};
+            list1.setListData(ListData);
+        }
         //data has type Object[]
         list1.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list1.setLayoutOrientation(JList.HORIZONTAL_WRAP);
