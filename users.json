@@ -1,0 +1,15 @@
+{
+  "users":
+  [
+    {
+      "name": "Aditya",
+      "score": 0,
+      "Matches played": 10
+    },
+    {
+      "name": "VSM",
+      "score": 56,
+      "Matches played": 10
+    }
+  ]
+}

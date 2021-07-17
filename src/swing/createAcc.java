@@ -49,6 +49,7 @@ public class createAcc extends JFrame{
                     UserModel user = new UserModel(userName); //If user already exists in file login else create acc
                     user.setMatchesPlayed(12);  //get data from file
                     user.setScore(450);         //get data from file
+                    user.displayData();
                     new DisplayProfile(userName,user);
                     dispose();
                 }

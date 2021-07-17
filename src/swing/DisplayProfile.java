@@ -5,6 +5,7 @@ import Models.UserModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class DisplayProfile extends JFrame{
 
@@ -22,7 +23,8 @@ public class DisplayProfile extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        String [] ListData={"\n","User name : \t "+name , "Score: \t" +user.getScore(), "Matches played: \t"+user.getMatchesPlayed(), "\n"};
+        ArrayList<Long> userData = user.getScoreAndMatchesPlayed();
+        String [] ListData={"\n","User name : \t "+name , "Score: \t" + userData.get(0), "Matches played: \t"+userData.get(1), "\n"};
         list1.setListData(ListData);
 
         //data has type Object[]
