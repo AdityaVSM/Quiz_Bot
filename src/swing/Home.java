@@ -30,8 +30,8 @@ public class Home extends JFrame {
 
         introLabel.setText("<html><ul><li>Welcome to our Quiz!</li><br><li>You will find numerous random <br> questions on different topics you choose</li><br><li>If you have already played this game <br> your score will be added to your<br>score in previous game</li><br><li>Random questions are selected <br>from an online API so you need not to <br> worry about repetitive questions</li></ul></html>");
         signInButton.setBorderPainted(false);
-        signInButton.setBackground(new Color(105,110,175));// inside the brackets your rgb color value like 255,255,255
-        signInButton.setForeground(Color.YELLOW);
+        signInButton.setBackground(new Color(153, 60, 243));// inside the brackets your rgb color value like 255,255,255
+        signInButton.setForeground(Color.white);
         signInButton.setFocusPainted(false);
 
         signInButton.addActionListener(new ActionListener() {

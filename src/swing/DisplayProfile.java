@@ -3,6 +3,7 @@ package swing;
 import Models.UserModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -23,6 +24,16 @@ public class DisplayProfile extends JFrame{
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+        startNewGameButton.setBorderPainted(false);
+        startNewGameButton.setBackground(new Color(153, 60, 243));
+        startNewGameButton.setForeground(Color.white);
+        startNewGameButton.setFocusPainted(false);
+
+        exitButton.setBorderPainted(false);
+        exitButton.setBackground(new Color(153, 60, 243));// inside the brackets your rgb color value like 255,255,255
+        exitButton.setForeground(Color.white);
+        exitButton.setFocusPainted(false);
 
         if(userData!=null) {
             String[] ListData = {"\n", "User name : \t " + name, "Score: \t" + userData.get(0), "Matches played: \t" + userData.get(1), "\n"};

@@ -61,6 +61,16 @@ public class Selection extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+        exitButton.setBorderPainted(false);
+        exitButton.setBackground(new Color(153, 60, 243));// inside the brackets your rgb color value like 255,255,255
+        exitButton.setForeground(Color.white);
+        exitButton.setFocusPainted(false);
+
+        startButton.setBorderPainted(false);
+        startButton.setBackground(new Color(153, 60, 243));// inside the brackets your rgb color value like 255,255,255
+        startButton.setForeground(Color.white);
+        startButton.setFocusPainted(false);
+
         setTopic();
         setDifficulty();
         setTopicApiValues();

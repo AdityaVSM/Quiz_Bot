@@ -41,6 +41,16 @@ public class Questions extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+        quitButton.setBorderPainted(false);
+        quitButton.setBackground(new Color(153, 60, 243));// inside the brackets your rgb color value like 255,255,255
+        quitButton.setForeground(Color.white);
+        quitButton.setFocusPainted(false);
+
+        submitButton.setBorderPainted(false);
+        submitButton.setBackground(new Color(153, 60, 243));// inside the brackets your rgb color value like 255,255,255
+        submitButton.setForeground(Color.white);
+        submitButton.setFocusPainted(false);
+
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
