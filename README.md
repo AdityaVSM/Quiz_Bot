@@ -2,8 +2,6 @@
 
 <h4> Desktop Quiz application built using java swing </h4>
 
-<br>
-  
   # Overview
 <ul>
   <li>You will find numerous random questions on different topics you choose</li>
@@ -14,7 +12,6 @@
 </ul>
 
   # Special thanks
-<br>
 Thanks to <a href="https://opentdb.com/">OpenTB<a/> for providing the free Quiz API
 <br>
 
