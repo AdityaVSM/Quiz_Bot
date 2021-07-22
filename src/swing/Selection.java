@@ -78,7 +78,7 @@ public class Selection extends JFrame {
                     };
                     new javax.swing.Timer(delay, taskPerformer).start();
                 }else{
-                    String api = "https://opentdb.com/api.php?amount=10&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple";
+                    String api = "https://opentdb.com/api.php?amount=20&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple";
                     System.out.println(api);
                     GenerateQuestions generateQuestions = new GenerateQuestions(api,name,userData,user);
                     try {
