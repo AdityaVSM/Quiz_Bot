@@ -36,6 +36,8 @@ public class Questions extends JFrame{
 
     public Questions(ArrayList<QuestionsModel> questionObjects, String name, ArrayList<Long> userData, UserModel user) {
         setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
+        bottomPane.setBackground(new Color(187,187,187));
+        setBackground(Color.white);
         this.questionObjects = questionObjects;
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,7 +82,7 @@ public class Questions extends JFrame{
         });
 
         //set heading
-        questionsHeading.setText("<html>"+topicSelected+"\t"+difficultySelected+"</html>");
+        questionsHeading.setText("Topic:  "+topicSelected+"             difficulty: "+difficultySelected);
         //get questions options and answer
         questions = new ArrayList<>();
         options = new ArrayList<>();
