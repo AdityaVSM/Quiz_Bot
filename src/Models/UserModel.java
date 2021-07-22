@@ -5,7 +5,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.lang.model.type.ArrayType;
 import java.io.*;
+import java.nio.file.LinkOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -74,37 +76,36 @@ public class UserModel {
         }
     }
 
-    public ArrayList<Long> getScoreAndMatchesPlayed() throws IOException {
-        if(getData()!=null && getData().containsKey(this.name) ){
-            return getData().get(this.name);
+    public ArrayList<Long> getScoreAndMatchesPlayed(String name) throws IOException {
+        if(getData()!=null && getData().containsKey(name) ){
+            return getData().get(name);
         }
         ArrayList<Long> temp = new ArrayList<>();
         temp.add(0L);
         temp.add(0L);
-        this.setMatchesPlayed(0);
-        this.setScore(0);
         return temp;
     }
 
-    public void storeData(UserModel user) throws IOException {
+    public void storeData(String userName, ArrayList<Long> data) throws IOException {
         HashMap<String,ArrayList<Long>> existingUsers = new HashMap<>();
-        if(getData() == null){
-            existingUsers.put(user.name,user.getScoreAndMatchesPlayed());
+        if(getData()==null){
+            existingUsers.put(userName,data);
         }else{
             existingUsers = getData();
-            existingUsers.put(user.name,user.getScoreAndMatchesPlayed());
+            existingUsers.put(userName,data);
         }
         JSONObject users = new JSONObject();
         JSONArray userArray = new JSONArray();
+
         for(HashMap.Entry<String, ArrayList<Long>> eachUserHashMapValue : existingUsers.entrySet()){
             JSONObject eachUserJSONObject = new JSONObject();
 
             String name = eachUserHashMapValue.getKey();
-            ArrayList<Long> data = eachUserHashMapValue.getValue();
+            ArrayList<Long> eachData = eachUserHashMapValue.getValue();
 
             eachUserJSONObject.put("name",name);
-            eachUserJSONObject.put("score", data.get(0));
-            eachUserJSONObject.put("Matches played", data.get(1));
+            eachUserJSONObject.put("score", eachData.get(0));
+            eachUserJSONObject.put("Matches played", eachData.get(1));
             userArray.add(eachUserJSONObject);
         }
         users.put("users",userArray);
@@ -115,7 +116,39 @@ public class UserModel {
         }catch (Exception e){
             e.getMessage();
         }
-
-
     }
+
+//    public void storeData(String userName) throws IOException {
+//        HashMap<String,ArrayList<Long>> existingUsers = new HashMap<>();
+//        UserModel user = new UserModel(userName);
+//        if(getData() == null){
+//            existingUsers.put(user.name,user.getScoreAndMatchesPlayed());
+//        }else{
+//            existingUsers = getData();
+//            existingUsers.put(user.name,user.getScoreAndMatchesPlayed());
+//        }
+//        JSONObject users = new JSONObject();
+//        JSONArray userArray = new JSONArray();
+//        for(HashMap.Entry<String, ArrayList<Long>> eachUserHashMapValue : existingUsers.entrySet()){
+//            JSONObject eachUserJSONObject = new JSONObject();
+//
+//            String name = eachUserHashMapValue.getKey();
+//            ArrayList<Long> data = eachUserHashMapValue.getValue();
+//
+//            eachUserJSONObject.put("name",name);
+//            eachUserJSONObject.put("score", data.get(0));
+//            eachUserJSONObject.put("Matches played", data.get(1));
+//            userArray.add(eachUserJSONObject);
+//        }
+//        users.put("users",userArray);
+//
+//
+//        try(FileWriter fileWriter = new FileWriter(new File("users.json"))){
+//            fileWriter.write(users.toJSONString());
+//        }catch (Exception e){
+//            e.getMessage();
+//        }
+//
+//
+//    }
 }

@@ -1,11 +1,13 @@
 package swing;
 
 import Models.QuestionsModel;
+import Models.UserModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class Questions extends JFrame{
     ArrayList<String> correctOptions;
     int score = 0;
 
-    public Questions(ArrayList<QuestionsModel> questionObjects) {
+    public Questions(ArrayList<QuestionsModel> questionObjects, String name, ArrayList<Long> userData, UserModel user) {
         setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
         this.questionObjects = questionObjects;
         setContentPane(mainPanel);
@@ -49,7 +51,21 @@ public class Questions extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Save score and matches played in user file
+                long oldScore = userData.get(0);
+                long oldNumberOfMatchesPlayed = userData.get(1);
+                userData.set(0,oldScore+score);
+                userData.set(1,oldNumberOfMatchesPlayed+1);
+                try {
+                    user.storeData(name,userData);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 dispose();
+                try {
+                    new DisplayProfile(name,user,userData);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 

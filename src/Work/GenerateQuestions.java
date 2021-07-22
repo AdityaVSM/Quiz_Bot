@@ -2,6 +2,7 @@ package Work;
 
 import Models.QuestionsModel;
 
+import Models.UserModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,9 +24,15 @@ public class GenerateQuestions {
     HashMap<String,ArrayList<String>> questionAndOptionsHashMap = new HashMap<>();
     ArrayList<QuestionsModel> questionObjects= new ArrayList<>();
     String api;
+    String name;
+    ArrayList<Long> userData;
+    UserModel user;
 
-    public GenerateQuestions(String api) {
+    public GenerateQuestions(String api,String name, ArrayList<Long> userData, UserModel user) {
         this.api = api;
+        this.name = name;
+        this.userData = userData;
+        this.user = user;
     }
 
     public ArrayList<String> randomiseOptions(String question, String correctOption,ArrayList<String> tempOptionsArr){
@@ -89,7 +96,7 @@ public class GenerateQuestions {
             questionAndOptionsHashMap.put(question,randomizedOptionsArray);     //put ready option arrayList to  questionAndOptionsHashMap
 
         }
-        Questions questionsPage = new Questions(questionObjects);
+        Questions questionsPage = new Questions(questionObjects,name,userData, user);
     }
 
 }

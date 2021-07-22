@@ -1,6 +1,7 @@
 package swing;
 
 import Models.QuestionsModel;
+import Models.UserModel;
 import Work.GenerateQuestions;
 import org.json.simple.parser.ParseException;
 
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -24,6 +26,7 @@ public class Selection extends JFrame {
     private JButton startButton;
     private JButton exitButton;
     private JLabel errorText;
+    UserModel user;
 
 
     //difficulty
@@ -50,7 +53,8 @@ public class Selection extends JFrame {
         topicApiValues.put("Music",12);
     }
 
-    public Selection(){
+    public Selection(String name, ArrayList<Long> userData, UserModel user){
+        this.user = user;
         errorText.setVisible(false);
         setSize(700,500);
         setContentPane(mainPanel);
@@ -76,7 +80,7 @@ public class Selection extends JFrame {
                 }else{
                     String api = "https://opentdb.com/api.php?amount=10&category="+topicApiValues.get(topicSelected)+"&difficulty="+difficultySelected.toLowerCase()+"&type=multiple";
                     System.out.println(api);
-                    GenerateQuestions generateQuestions = new GenerateQuestions(api);
+                    GenerateQuestions generateQuestions = new GenerateQuestions(api,name,userData,user);
                     try {
                         generateQuestions.generateQuestionsAndOptions();
                     } catch (Exception ex) {

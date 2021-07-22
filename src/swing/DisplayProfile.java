@@ -17,14 +17,13 @@ public class DisplayProfile extends JFrame{
     private JButton exitButton;
     private UserModel user;
 
-    public DisplayProfile(String name, UserModel user) throws IOException {
+    public DisplayProfile(String name, UserModel user,ArrayList<Long> userData) throws IOException {
         this.user = user;
         setSize(700,500);
         setContentPane(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        ArrayList<Long> userData = user.getScoreAndMatchesPlayed();
         if(userData!=null) {
             String[] ListData = {"\n", "User name : \t " + name, "Score: \t" + userData.get(0), "Matches played: \t" + userData.get(1), "\n"};
             list1.setListData(ListData);
@@ -44,7 +43,7 @@ public class DisplayProfile extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new Selection();
+                new Selection(name, userData, user);
             }
         });
     }

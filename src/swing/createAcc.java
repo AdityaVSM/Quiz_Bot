@@ -50,20 +50,21 @@ public class createAcc extends JFrame{
                 }else{
                     userName = textField1.getText();
                     UserModel user = new UserModel(userName); //If user already exists in file login else create acc
+                    ArrayList<Long> userData = new ArrayList<>();
                     try {
-                        ArrayList<Long> userData = user.getScoreAndMatchesPlayed();
+                        userData = user.getScoreAndMatchesPlayed(userName);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    if(user.getMatchesPlayed()==0 && user.getScore()==0){
+                    if(userData.get(1)==0){
                         try {
-                            user.storeData(user);
+                            user.storeData(userName,userData);
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
                     }
                     try {
-                        new DisplayProfile(userName,user);
+                        new DisplayProfile(userName,user,userData);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
