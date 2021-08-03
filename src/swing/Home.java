@@ -17,7 +17,6 @@ public class Home extends JFrame {
     private JButton signInButton;
     private JLabel imageLabel;
     private JLabel introLabel;
-    private JButton exitButton;
     private BufferedImage mainQuizImage;
 
 

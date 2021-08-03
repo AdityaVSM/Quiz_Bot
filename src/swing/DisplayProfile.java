@@ -40,7 +40,6 @@ public class DisplayProfile extends JFrame{
             list1.setListData(ListData);
         }
         //data has type Object[]
-        list1.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list1.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         list1.setVisibleRowCount(-1);
 

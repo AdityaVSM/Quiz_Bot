@@ -117,38 +117,4 @@ public class UserModel {
             e.getMessage();
         }
     }
-
-//    public void storeData(String userName) throws IOException {
-//        HashMap<String,ArrayList<Long>> existingUsers = new HashMap<>();
-//        UserModel user = new UserModel(userName);
-//        if(getData() == null){
-//            existingUsers.put(user.name,user.getScoreAndMatchesPlayed());
-//        }else{
-//            existingUsers = getData();
-//            existingUsers.put(user.name,user.getScoreAndMatchesPlayed());
-//        }
-//        JSONObject users = new JSONObject();
-//        JSONArray userArray = new JSONArray();
-//        for(HashMap.Entry<String, ArrayList<Long>> eachUserHashMapValue : existingUsers.entrySet()){
-//            JSONObject eachUserJSONObject = new JSONObject();
-//
-//            String name = eachUserHashMapValue.getKey();
-//            ArrayList<Long> data = eachUserHashMapValue.getValue();
-//
-//            eachUserJSONObject.put("name",name);
-//            eachUserJSONObject.put("score", data.get(0));
-//            eachUserJSONObject.put("Matches played", data.get(1));
-//            userArray.add(eachUserJSONObject);
-//        }
-//        users.put("users",userArray);
-//
-//
-//        try(FileWriter fileWriter = new FileWriter(new File("users.json"))){
-//            fileWriter.write(users.toJSONString());
-//        }catch (Exception e){
-//            e.getMessage();
-//        }
-//
-//
-//    }
 }
